@@ -67,6 +67,12 @@
   /* Extra styles for the cancel button */
   .cancelbtn {
     padding: 14px 20px;
+    color: white;
+    text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
     background: linear-gradient(to right,red,orange,yellow,green,blue,indigo,violet);
   }
 
@@ -96,12 +102,24 @@
 
   /* Modal Content/Box */
   .modal-content {
-    background-color: #fefefe;
+    background-color: #cccccc;
     margin-left: 3%;
     margin-top: 3%;
     border: 1px solid #888;
     width: 40%; /* Could be more or less, depending on screen size */
     height: 90%;
+  }
+
+  #info {
+    z-index: 20;
+  }
+
+  #info h2 {
+    text-align: center;
+  }
+
+  #info p {
+    padding: 5%;
   }
 
   /* Style the horizontal ruler */
@@ -130,53 +148,13 @@
   }
 
 
- .container2 input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
-}
-
 #image-display {
   position: absolute;
-  width: 42.5%;
+  width: 45%;
   left: 45%;
   top: 4.5%;
   padding: 16px;
   z-index: 5;
-}
-
-/* On mouse-over, add a grey background color */
-.container2:hover input ~ .checkmark {
-  background-color: #ccc;
-}
-
-/* When the radio button is checked, add a blue background */
-.container2 input:checked ~ .checkmark {
-  background-color: #2196F3;
-}
-
-/* Create the indicator (the dot/circle - hidden when not checked) */
-.checkmark:after {
-  content: "";
-  position: absolute;
-  display: none;
-}
-
-/* Show the indicator (dot/circle) when checked */
-.container2 input:checked ~ .checkmark:after {
-  display: block;
-}
-
-/* Style the indicator (dot/circle) */
-.container2 .checkmark:after {
-  top: 9px;
-  left: 9px;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: white;
 }
 
   #id01 {
@@ -202,21 +180,47 @@
       <label for="max_b"><b>Maximum Blue Value (0-255)</b></label>
       <input type="text" placeholder="Blue Max" name="max_b" required>
       <br>
-      <button type="button" id="hsv" onclick="change_names()" class="cancelbtn">Change to HSV</button>
       <input type="hidden" id="r" name="r" value="">
       <input type="hidden" id="g" name="g" value="">
       <input type="hidden" id="b" name="b" value="">
       <input type="hidden" id="color_mode" name="color_mode" value=0>
       <div class='clearfix'>
-        <button id="submit" class="signupbtn" type="submit">Generate Image</button>
+        <button id="submit" class="cancelbtn" type="submit">Generate Image</button>
       </div>
     </div>
   </form>
+  </div>
+  <div id="info" style="display: block" class="modal">
+    <div class="modal-content" style="background-color: gray">
+      <h2><u>Math is Beautiful</u></h2>
+      <p>
+        &emsp; &emsp;I once was told that the more confusing math becomes, the more elegant it is to the understood eye. It might
+        seem like chaos and magic to one person, but to a well trained mind and eye, it becomes an intricate series of
+        patterns. This is a playful utility that lets you experience the patterns for yourself. There is no graph, no
+        strict equations, no scary derivatives, or weird set theory, just a canvas and a few inputs where you can put
+        whatever your heart and mind desires (within reason). Simply give it an equation for R, G, B with parameters of
+        x and y, and see what gets draw onto the canvas in front of you. It might take a minute or two since this is
+        quite a sizable number of calculations, but it'll come to fruition. <br>
+
+        &emsp;&emsp;If you are interested in the calculations being done or the text parsing that takes place to allow
+        you to have such a pleasant environment to enter data in, please checkout the
+        <a href="https://github.com/colton5007/Math-is-Beautiful">github repo</a>. It might just seem like a pretty
+        image generator but there is a lot going on here. Over 3145728 calculations are done alone which is the shortest
+        part when you consider the effort it takes to parse even simple symbolic expressions and interpret them
+        programmatically.<br>
+
+        &emsp;&emsp;Whenever you are ready to try it out for yourself click the button below and I hope you have fun and
+        learn something.
+
+        <button onclick="document.getElementById('info').style.display = 'none'">Math is Beautiful</button>
+      </p>
+    </div>
   </div>
   <div>
     <img id="image-display" src="/img">
   </div>
 </div>
+
 
 <script>
   let color_mode = 0;
