@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Math is Beautiful</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/static/mathquill.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="/static/mathquill.js"></script>
+<script>
+  let MQ = MathQuill.getInterface(2);
+</script>
+<style>
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #ddd;
+  }
+
+  th, td {
+    text-align: left;
+    padding: 16px;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f2f2f2
+  }
+
+  #t {
+    width: 100%;
+    height: 540px;
+    overflow: auto;
+  }
+  * {box-sizing: border-box}
+  /* Full-width input fields */
+    input[type=text], input[type=password], input[type=tel] {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+  }
+
+  /* Add a background color when the inputs get focus */
+  input[type=text]:focus, input[type=password]:focus, input[type=tel]:focus {
+    background-color: #ddd;
+    outline: none;
+  }
+
+  /* Set a style for all buttons */
+  button {
+    background-color: #4C50CF;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+  }
+
+  button:hover {
+    opacity:1;
+  }
+
+  /* Extra styles for the cancel button */
+  .cancelbtn {
+    padding: 14px 20px;
+    background: linear-gradient(to right,red,orange,yellow,green,blue,indigo,violet);
+  }
+
+  /* Float cancel and signup buttons and add an equal width */
+  .cancelbtn, .signupbtn {
+    float: left;
+    width: 50%;
+  }
+
+  /* Add padding to container elements */
+  .container {
+    padding: 16px;
+  }
+
+  /* The Modal (background) */
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(71,88,93, 0.9);
+  }
+
+  /* Modal Content/Box */
+  .modal-content {
+    background-color: #fefefe;
+    margin-left: 3%;
+    margin-top: 3%;
+    border: 1px solid #888;
+    width: 40%; /* Could be more or less, depending on screen size */
+    height: 90%;
+  }
+
+  /* Style the horizontal ruler */
+  hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
+  }
+
+  /* Clear floats */
+  .clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+
+  /* Change styles for cancel button and signup button on extra small screens */
+  @media screen and (max-width: 300px) {
+    .cancelbtn, .signupbtn {
+      width: 100%;
+    }
+  }
+
+  #config-menu > * {
+    width: 10%;
+    display: inline-block;
+  }
+
+
+ .container2 input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+#image-display {
+  position: absolute;
+  width: 42.5%;
+  left: 45%;
+  top: 4.5%;
+  padding: 16px;
+  z-index: 5;
+}
+
+/* On mouse-over, add a grey background color */
+.container2:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.container2 input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.container2 input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.container2 .checkmark:after {
+  top: 9px;
+  left: 9px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+}
+
+  #id01 {
+    display: block;
+  }
+</style>
+</head>
+<body>
+<div id="id01" class="modal">
+  <form action="/" class="modal-content" method='post' id="form1">
+
+    <div class="container">
+
+      <p><b id="bold-r">Red: </b><span id="R-input"></span></p>
+      <label for="max_r"><b>Maximum Red Value (0-255)</b></label>
+      <input type="text" placeholder="Red Max" name="max_r" required>
+
+      <p><b id="bold-g">Green: </b><span id="G-input"></span></p>
+      <label for="max_g"><b>Maximum Green Value (0-255)</b></label>
+      <input type="text" placeholder="Green Max" name="max_g" required>
+
+      <p><b id="bold-b">Blue: </b><span id="B-input"></span></p>
+      <label for="max_b"><b>Maximum Blue Value (0-255)</b></label>
+      <input type="text" placeholder="Blue Max" name="max_b" required>
+      <br>
+      <button type="button" id="hsv" onclick="change_names()" class="cancelbtn">Change to HSV</button>
+      <input type="hidden" id="r" name="r" value="">
+      <input type="hidden" id="g" name="g" value="">
+      <input type="hidden" id="b" name="b" value="">
+      <input type="hidden" id="color_mode" name="color_mode" value=0>
+      <div class='clearfix'>
+        <button id="submit" class="signupbtn" type="submit">Generate Image</button>
+      </div>
+    </div>
+  </form>
+  </div>
+  <div>
+    <img id="image-display" src="/img">
+  </div>
+</div>
+
+<script>
+  let color_mode = 0;
+  function change_names() {
+    color_mode = (color_mode + 1) % 2;
+    document.getElementById("color_mode").value = color_mode;
+    if(color_mode == 0) {
+      document.getElementById("hsv").innerText = "Change to HSV";
+      document.getElementById("bold-r").innerText = "Red: "
+      document.getElementById("bold-g").innerText = "Green: "
+      document.getElementById("bold-b").innerText = "Blue: "
+    } else {
+      document.getElementById("hsv").innerText = "Change to RGB";
+      document.getElementById("bold-r").innerText = "Hue: "
+      document.getElementById("bold-g").innerText = "Saturation: "
+      document.getElementById("bold-b").innerText = "Value: "
+    }
+  }
+
+  let mathFieldSpan = document.getElementById('R-input');
+
+  let mathField = MQ.MathField(mathFieldSpan, {
+  spaceBehavesLikeTab: true, // configurable
+  handlers: {
+    edit: function() { // useful event handlers
+      document.getElementById("r").value = mathField.latex();
+    }
+  }
+  });
+
+  let mathFieldSpan2 = document.getElementById('G-input');
+
+  let mathField2 = MQ.MathField(mathFieldSpan2, {
+  spaceBehavesLikeTab: true, // configurable
+  handlers: {
+    edit: function() { // useful event handlers
+      document.getElementById("g").value = mathField2.latex();
+    }
+  }
+  });
+
+  let mathFieldSpan3 = document.getElementById('B-input');
+
+  let mathField3 = MQ.MathField(mathFieldSpan3, {
+  spaceBehavesLikeTab: true, // configurable
+  handlers: {
+    edit: function() { // useful event handlers
+      document.getElementById("b").value = mathField3.latex();
+    }
+  }
+  });
+</script>
+</body>
